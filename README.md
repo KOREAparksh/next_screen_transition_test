@@ -1,5 +1,9 @@
 <p align="center"><img src="https://i.imgur.com/a9QWW0v.png"></p>
 
+# 주의사항
+
+- Don't use yarn berry
+
 ## Usage
 
 ### Create an App

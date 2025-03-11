@@ -4,6 +4,18 @@
 
 - Don't use yarn berry
 
+## Description
+
+- nextron으로 개발
+
+### main
+
+electron 코드 설정 부분
+
+### renderer
+
+next.js 설정 부분
+
 ## Usage
 
 ### Create an App

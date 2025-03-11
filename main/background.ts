@@ -1,6 +1,7 @@
-import { app, BrowserWindow, ipcMain } from "electron";
+import { app, ipcMain } from "electron";
 import serve from "electron-serve";
-import { CONFIG, getAssetPath, RESOURCES } from "./helpers/static";
+import path from "path";
+import { createWindow } from "./helpers";
 
 const isProd = process.env.NODE_ENV === "production";
 
@@ -13,13 +14,12 @@ if (isProd) {
 (async () => {
   await app.whenReady();
 
-  const mainWindow = new BrowserWindow({
-    width: CONFIG.defaultWidth,
-    height: CONFIG.defaultHeight,
-    icon: getAssetPath("icon.png"),
+  const mainWindow = createWindow("main", {
+    width: 1000,
+    height: 600,
+    // fullscreen: true,
     webPreferences: {
-      preload: RESOURCES.preload,
-      // ...
+      preload: path.join(__dirname, "preload.js"),
     },
   });
 
@@ -27,12 +27,8 @@ if (isProd) {
     await mainWindow.loadURL("app://./home");
   } else {
     const port = process.argv[2];
-    await mainWindow.loadURL(`http://localhost:${port}/home`);
-
-    // 개발 환경에서만 개발자 도구 표시
-    if (CONFIG.enableDevTools) {
-      mainWindow.webContents.openDevTools();
-    }
+    await mainWindow.loadURL(`http://localhost:${port}/`);
+    // mainWindow.webContents.openDevTools();
   }
 })();
 
